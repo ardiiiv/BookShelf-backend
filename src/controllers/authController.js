@@ -44,16 +44,19 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // 1. Cari user berdasarkan email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Email atau password salah" })
     }
 
+    // 2. Cocokkan password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res.status(400).json({ message: "Email atau password salah" })
+      return res.status(400).json({ message: "Email atau password salah" })
     }
 
+    // 3. Generate token
     const token = generateToken(user);
 
     res.status(200).json({

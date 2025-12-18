@@ -10,7 +10,11 @@ const bookSchema = mongoose.Schema(
             type: String,
             required:true,
         },
-        status: {
+        year: {
+            type: Number,
+            required: true
+        },
+        isRead: {
             type: Boolean,
             default: false
         },

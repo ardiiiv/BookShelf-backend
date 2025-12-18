@@ -1,7 +1,10 @@
 import express from "express"
 import dotenv from "dotenv"
+import { connectDB }  from "./src/config/db.js";
+import authRoutes from "./src/routes/authRoutes.js"
 
 dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -10,9 +13,7 @@ app.use(express.json())
 // middleware end
 
 // router start
-app.use("/", (req, res) => {
-    res.send("<h1>Hello World!!</h1>")
-});
+app.use("/api/auth", authRoutes);
 // router end
 
 const port = process.env.PORT || 3000;
