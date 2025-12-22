@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import { connectDB }  from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js"
+import { errorHandler } from "./src/middleware/errorMiddleware.js";
 
 dotenv.config();
 connectDB();
@@ -15,6 +16,10 @@ app.use(express.json())
 // router start
 app.use("/api/auth", authRoutes);
 // router end
+
+// error start
+app.use(errorHandler);
+// error end
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || "localhost";

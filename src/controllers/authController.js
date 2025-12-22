@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
 
@@ -36,11 +36,11 @@ export const register = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: "Gagal registrasi", error: error.message });
+    next(error);
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -69,21 +69,16 @@ export const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Login gagal",
-      error: error.message,
-    });
+    next(error);
   }
 }
 
-export const getMe = async (req, res) => {
+export const getMe = async (req, res, next) => {
   try {
     res.status(200).json({
       user: req.user,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Gagal mengambil data user",
-    });
+    next(error);
   }
 };
