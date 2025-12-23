@@ -82,3 +82,12 @@ export const getMe = async (req, res, next) => {
     next(error);
   }
 };
+
+
+export const logout = (req, res, next) => {
+  try {
+    res.status(200).json({ message: "logout berhasil" });
+  } catch (error) {
+    next(error)
+  }
+}

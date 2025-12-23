@@ -5,12 +5,13 @@ import Book from "../models/Book.js";
 // =======================
 export const createBook = async (req, res, next) => {
   try {
-    const { title, author, status } = req.body;
+    const { title, author, year, isRead } = req.body;
 
     const book = await Book.create({
       title,
       author,
-      status,
+      year,
+      isRead,
       userId: req.user._id, // relasi ke user login
     });
 
